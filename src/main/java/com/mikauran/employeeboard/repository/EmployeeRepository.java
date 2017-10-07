@@ -17,9 +17,10 @@ package com.mikauran.employeeboard.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import com.mikauran.employeeboard.model.Employee;
+import org.bson.types.ObjectId;
 
 
-public interface EmployeeRepository extends CrudRepository<Employee, String> {
+public interface EmployeeRepository extends CrudRepository<Employee, ObjectId> {
 
 }
 

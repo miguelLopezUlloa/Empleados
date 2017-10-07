@@ -15,29 +15,28 @@
  */
 package com.mikauran.employeeboard.model;
 
-/*import javax.persistence.Entity;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Id;*/
+import javax.persistence.Id;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
-
-
-/*@Entity*/
-@Document(collection = "employees")
 @Data
-@SuppressWarnings("unused")
+@Entity
+@Document(collection = "employees")
 public class Employee {
 
-	//private @Id @GeneratedValue Long id;
-	private String id;
+	@Id ObjectId databaseId;
+	private ObjectId id;
 	
 	private String firstName;
 	private String lastName;
 	private String description;
 
+	@SuppressWarnings("unused")
 	private Employee() {}
 
 	public Employee(String firstName, String lastName, String description) {
