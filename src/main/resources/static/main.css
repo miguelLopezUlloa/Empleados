@@ -1,4 +1,4 @@
-table {
+/* table {
     border-collapse: collapse;
 }
 
@@ -6,6 +6,10 @@ td, th, td {
     border: 1px solid black;
     padding: 0.5rem;
     text-align: left;
+} */
+reactivo.style {
+    text-align: center;
+    padding-top: 30px;
 }
 
 html {

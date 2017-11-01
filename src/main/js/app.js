@@ -1,39 +1,66 @@
 'use strict';
 
+//import React from 'react';
+import React, {Component} from 'react';
+import AppBar from 'material-ui/AppBar';
+
+import {
+	  Table,
+	  TableBody,
+	  TableHeader,
+	  TableHeaderColumn,
+	  TableRow,
+	  TableRowColumn,
+	} from 'material-ui/Table';
+	
 // tag::vars[]
 //import EmpleadoAvatar from '../avatars'
 
-const React = require('react');
+//const React = require('react');
 const ReactDOM = require('react-dom')
 const client = require('./client');
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import RaisedButton from 'material-ui/RaisedButton';
+/*import RaisedButton from 'material-ui/RaisedButton';
 import {deepOrange500} from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import FlatButton from 'material-ui/FlatButton';*/
+//import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 injectTapEventPlugin();
+
+/*state = {
+		selected: [1],
+};*/
+
 // end::vars[]
 
 const styles = {
 		  container: {
 		    textAlign: 'center',
-		    paddingTop: 200,
+		    paddingTop: 1,
 		  },
 	};
 
 
-const muiTheme = getMuiTheme({
+/*const muiTheme = getMuiTheme({
 	  palette: {
 	    accent1Color: deepOrange500,
 	  },
-	});
+	});*/
+
+
+/*const AppBarExampleIcon = () => (
+		  <AppBar
+		    title="My sweet Home..."
+		    iconClassNameRight="muidocs-icon-navigation-expand-more"
+		  />
+		);*/
+
 
 // tag::app[]
 class App extends React.Component {
-
+	
 	constructor(props) {
 		super(props);
 		this.state = {employees: []};
@@ -46,10 +73,15 @@ class App extends React.Component {
 	}
 
 	render() {
+		
+		var state = {
+				selected: [1],
+		};
+		
 		return (
-				<MuiThemeProvider muiTheme={getMuiTheme()}>
+				<MuiThemeProvider>
 			        <div style={styles.container}>
-					
+			        		<AppBar title='Employees Dashboard' />
 			        		<EmployeeList employees={this.state.employees}/>
 			        </div>
 		        </MuiThemeProvider>
@@ -74,21 +106,33 @@ class EmpleadoAvatar extends React.Component {
 
 // tag::employee-list[]
 class EmployeeList extends React.Component{
+	
 	render() {
+		
+		var handleRowSelection = (selectedRows) => {
+			this.setState({
+				selected: selectedRows,
+			});
+		};
+		
 		var employees = this.props.employees.map(employee =>
 			<Employee key={employee._links.self.href} employee={employee}/>
 		);
 		return (
-			<table>
-				<tbody>
-					<tr>
-						<th>Name</th>
-						<th>Last Name</th>
-						<th>Description</th>
-					</tr>
-					{employees}
-				</tbody>
-			</table>
+				<Table onRowSelection={this.handleRowSelection}>
+		        <TableHeader>
+			        <TableRow>
+			            <TableHeaderColumn>Name</TableHeaderColumn>
+			            <TableHeaderColumn>Last Name</TableHeaderColumn>
+			            <TableHeaderColumn>Description</TableHeaderColumn>
+			        </TableRow>	
+		        </TableHeader>
+	            <TableBody>
+	          	 <TableRow>
+	          		{employees}
+	          	 </TableRow>
+	            </TableBody>
+	           </Table>
 		)
 	}
 }
@@ -96,18 +140,22 @@ class EmployeeList extends React.Component{
 
 // tag::employee[]
 class Employee extends React.Component{
+	
 	render() {
+		
+		let isSelected = (index) => {
+			return this.state.selected.indexOf(index) !== -1;
+		};
+		
 		return (
-		<li className="media">
-			<tr>
-				<td>
-					<EmpleadoAvatar picture={this.props.picture} />
-					{this.props.employee.firstName}
-				</td>
-				<td>{this.props.employee.lastName}</td>
-				<td>{this.props.employee.description}</td>
-			</tr>
-		 </li>
+				<TableRow>
+		            <TableRowColumn>
+						            <EmpleadoAvatar picture={this.props.picture} />
+									{this.props.employee.firstName}
+		            </TableRowColumn>
+				    <TableRowColumn>{this.props.employee.lastName}</TableRowColumn>
+				    <TableRowColumn>{this.props.employee.description}</TableRowColumn>
+	            </TableRow>		
 		)
 	}
 }
