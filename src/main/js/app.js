@@ -74,10 +74,6 @@ class App extends React.Component {
 
 	render() {
 		
-		var state = {
-				selected: [1],
-		};
-		
 		return (
 				<MuiThemeProvider>
 			        <div style={styles.container}>
@@ -109,6 +105,26 @@ class EmployeeList extends React.Component{
 	
 	render() {
 		
+		state = {
+			    fixedHeader: false,
+			    fixedFooter: false,
+			    stripedRows: true,
+			    showRowHover: true,
+			    selectable: true,
+			    multiSelectable: false,
+			    enableSelectAll: true,
+			    deselectOnClickaway: false,
+			    showCheckboxes: true
+			  };
+		
+		state = {
+			    selected: [1],
+			  };
+		
+		var isSelected = (index) => {
+			return this.state.selected.indexOf(index) !== -1;
+		};
+		
 		var handleRowSelection = (selectedRows) => {
 			this.setState({
 				selected: selectedRows,
@@ -122,15 +138,16 @@ class EmployeeList extends React.Component{
 				<Table onRowSelection={this.handleRowSelection}>
 		        <TableHeader>
 			        <TableRow>
+			        		<TableHeaderColumn>Avatar</TableHeaderColumn>
 			            <TableHeaderColumn>Name</TableHeaderColumn>
 			            <TableHeaderColumn>Last Name</TableHeaderColumn>
 			            <TableHeaderColumn>Description</TableHeaderColumn>
 			        </TableRow>	
 		        </TableHeader>
 	            <TableBody>
-	          	 <TableRow>
+	          	
 	          		{employees}
-	          	 </TableRow>
+	          	 
 	            </TableBody>
 	           </Table>
 		)
@@ -143,14 +160,12 @@ class Employee extends React.Component{
 	
 	render() {
 		
-		let isSelected = (index) => {
-			return this.state.selected.indexOf(index) !== -1;
-		};
-		
 		return (
 				<TableRow>
+				    <TableRowColumn>
+				                     <EmpleadoAvatar picture={this.props.picture} />
+				    </TableRowColumn>
 		            <TableRowColumn>
-						            <EmpleadoAvatar picture={this.props.picture} />
 									{this.props.employee.firstName}
 		            </TableRowColumn>
 				    <TableRowColumn>{this.props.employee.lastName}</TableRowColumn>
