@@ -105,7 +105,8 @@ class EmployeeList extends React.Component{
 	
 	render() {
 		
-		state = {
+		var state = {
+			    selected : [1],
 			    fixedHeader: false,
 			    fixedFooter: false,
 			    stripedRows: true,
@@ -117,9 +118,9 @@ class EmployeeList extends React.Component{
 			    showCheckboxes: true
 			  };
 		
-		state = {
+		/*var state = {
 			    selected: [1],
-			  };
+			  };*/
 		
 		var isSelected = (index) => {
 			return this.state.selected.indexOf(index) !== -1;
